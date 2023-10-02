@@ -1,4 +1,4 @@
-const { log } = require('console')
+
 const event = require('events')
 
 const EventEmitter = new event()
@@ -52,17 +52,64 @@ EventEmitter.once('message', message3)
 
 const user = { name: 'micheal' }
 //event will only emit once despite been call twice
-EventEmitter.emit('message', user)
-EventEmitter.emit('message', user)
+// EventEmitter.emit('message', user)
+// EventEmitter.emit('message', user)
 
 
 //using listeners() to know numbers of listener for a particular event
-EventEmitter.on('message',message1)
- EventEmitter.on('message',message2)
- EventEmitter.on('message', message3)
+// EventEmitter.on('message',message1)
+//  EventEmitter.on('message',message2)
+//  EventEmitter.on('message', message3)
 
-const messageListeners = EventEmitter.listeners('message')
-console.log(`Total Message event listeners : ${messageListeners.length} 
-They are: ${messageListeners}`);
+// const messageListeners = EventEmitter.listeners('message')
+// console.log(`Total Message event listeners : ${messageListeners.length}
+// They are: ${messageListeners}`);
 
 //error event
+// const errorEvent = () => {
+// // creating an new error objects from the ERROR class
+//     const error = new Error("something terible happen")
+
+//     console.log(`Error Object =>${error}
+//     Error Code: ${error.code}
+//     Error message: ${error.message}`)
+// }
+
+// EventEmitter.on('error', errorEvent)
+// EventEmitter.emit('error')
+//EventEmitter.off('error',errorEvent)
+
+
+EventEmitter.on('error', (error) => {
+    console.log('An error occurred:', error.errorMessages());
+})
+
+// Simulate an operation that can throw an error
+const simulateError = () => {
+    if (Math.random() < 0.5) {
+        // Create an error object and modified object
+        const error = new Error('Oops! Something went wrong.')
+         error.errorMessages = () => {
+            error.code = 404;
+            error.time = new Date().toLocaleTimeString();
+             return (`${error.code} => ${error.message}
+             ${error.time}`);
+        };
+// Emit the 'error' event with the error object
+        EventEmitter.emit('error', error);
+
+    } else {
+        // Simulate a successful operation
+        console.log('Operation succeeded!');
+    }
+}
+// Call the function that may throw an error
+try {
+    simulateError();
+} catch (error) {
+    // Handle any synchronous errors here
+    console.error('Synchronous error:', error);
+}
+
+console.log('Program continues...');
+
