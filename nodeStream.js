@@ -1,8 +1,10 @@
 
  const fs = require('fs');
 
+//  //creating a read stream from data in example.txt
 // const readableStream = fs.createReadStream('example.txt');
 
+// //emitting a data event from stream when ready
 // readableStream.on('data', (chunk) => {
 //     console.log('Received a chunk of data:', chunk.toString());
 // });
@@ -30,7 +32,7 @@
 
 
 
-// // create a read stream from the file example.txt.
+// //...... create a read stream from a source file (example.txt.)
 // const readStream = fs.createReadStream('example.txt');
 
 // //We then subscribe to the data and end events.
@@ -53,15 +55,33 @@
 
 // sourceStream.pipe(destinationStream)
 
-//piping to move some data in a source to another destination
-const readStream = fs.createReadStream('example.txt');
-const writeStream = fs.createWriteStream('someWriteStream.txt');
 
-readStream.pipe(writeStream, (chunk) => {
 
-    console.log("source data length:", chunk.length)
-  // If the chunk of data is smaller than 100 bytes, write it to the destination stream.
-  if (chunk.length < 10) {
-    writeStream.write(chunk);
-  }
-});
+
+
+
+
+//.....Creating Readable stream from node  stream
+//import Readable class from stream
+// const { Readable } = require('stream');
+
+// // creating a read stream instance of the Readable stream class
+// const readableStream = new Readable({
+     //implement read method
+//     read() {
+//  //Push data to the stream
+// this.push('ping!');
+// this.push('pong!');
+// this.push(null)//signify end of stream
+// }
+// });
+
+
+// // Read the data from the stream
+// const data = readableStream.read();
+
+// // Do something with the data
+// console.log(data.toString());
+
+
+//....piping to move some data in a source to another destination
