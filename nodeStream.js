@@ -13,6 +13,8 @@
 //     console.log('Finished reading the file.');
 // });
 
+
+
 // const readline = require('readline');
 
 // const rl = readline.createInterface({
@@ -24,8 +26,6 @@
 //     console.log(`You entered: ${answer}`);
 //     rl.close();
 // });
-
-
 
 
 
@@ -58,9 +58,6 @@
 
 
 
-
-
-
 //.....Creating Readable stream from node  stream
 //import Readable class from stream
 // const { Readable } = require('stream');
@@ -85,3 +82,40 @@
 
 
 //....piping to move some data in a source to another destination
+
+//writeable stream
+
+
+// Create a Writable stream to write data to a file
+// const writableStream = fs.createWriteStream('writeStream.txt')
+
+// // Use the write() method to write data to the stream
+// writableStream.write('Hello, ');
+// writableStream.write('world! john');
+// writableStream.end(); // End the stream to indicate that writing is complete
+
+// // Listen for the 'finish' event to know when writing is finished
+// writableStream.on('finish', () => {
+//      console.log('finish writing');
+// })
+
+
+//...creating a Writable stream using the stream module
+const { Writable } = require('stream');
+
+// Create a custom Writable stream by extending the Writable class
+const customWritableStream = new Writable({
+  write(chunk, encoding, callback) {
+    // Implement your custom write logic here
+    console.log('Received data:', chunk.toString());
+    callback();
+  },
+});
+
+// Use the customWritableStream to write data
+customWritableStream.write('Hello, world!', 'utf8', () => {
+  console.log('Writing is complete.');
+});
+
+// End the stream to indicate that writing is done
+customWritableStream.end();
