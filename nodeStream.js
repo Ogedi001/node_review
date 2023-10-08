@@ -1,3 +1,4 @@
+const { log } = require("console");
 const fs = require("fs");
 
 //  //creating a read stream from data in example.txt
@@ -188,45 +189,99 @@ const fs = require("fs");
 
 
 
-//....PASSING DATA(dataToBeRead) as a parameter when creating an instance of duplex stream class
- const { Duplex } = require("stream");
- class MyDuplexStream extends Duplex {
-   //special method that get call when new instance the class is made
-   constructor(dataToBeRead) {
-     //calling parent class constructor
-     super();
-     //passing variable to the constructor
-     this.dataToBeRead = dataToBeRead
-   }
-   //logics for new method and properties customization
+//....PASSING DATA(dataToBeRead ) as a parameter when creating an instance of duplex stream class
+//  const { Duplex } = require("stream");
+//  class MyDuplexStream extends Duplex {
+//    //special method that get call when new instance the class is made
+//    constructor(dataToBeRead,writeFile) {
+//      //calling parent class constructor
+//      super();
+//      //passing variables to the constructor
+//      this.dataToBeRead = dataToBeRead
+//      this.writeFile = writeFile
+//    }
+//    //logics for new method and properties customization
 
-   //write to stream method
+//    //write to stream method
    
-   _write(chunks, encoding, callback) {
-     //implement custom write logic..
-     console.log("Writing: ", chunks.toString()); //indicate success
-     callback();
-   }
+//    _write(chunks, encoding, callback) {
+//      //implement custom write logic..
+//      fs.appendFile(ivalid, chunks, (err) => {
+//        if (err) {
+//          //implement error call back
+//          console.error("Error writing to file:", err.message);
+//          callback(err); // Call the callback with the error
+//        } else {
+//           console.log("Writing: ", chunks.toString()); //indicate success
+//           callback();
+//        }
+//      })
+    
+//    }
 
-   _read(size) {
-     //size = number of bytes requested to be read
-     console.log(size);
-     // Implement custom read logic here
-     // Push data to be read from the stream
-     this.push(this.dataToBeRead);
-     this.push(null); //signify end of stream, IF IGNORE will continue reading data inifinitly;
-   }
- }
-const readableData = 'my name is ogedi'
-const writableData = 'ghd written'
-const myDuplexStream = new MyDuplexStream(readableData);
+//    _read(size) {
+//      //size = number of bytes requested to be read
+//      console.log(size);
+//      // Implement custom read logic here
+//      // Push data to be read from the stream
+//      this.push(this.dataToBeRead);
+//      this.push(null); //signify end of stream, IF IGNORE will continue reading data inifinitly;
+//    }
+// }
+//  const sourceFile = 'someWriteStream.txt'
+// const readableData = 'my name is ogedi'
+// const writableData = 'we have pass the location of this text file  as we create the duplex stream instance'
+// const myDuplexStream = new MyDuplexStream(readableData,sourceFile);
 
- myDuplexStream.write(writableData, "utf-8", () => {
-  console.log("Write operation complete.");
-});
+//  myDuplexStream.write(writableData, "utf-8", (error) => {
+//    if (error) {
+//      console.error("Error writing to stream:", error.message);
+//    } else {
+//      console.log("Write operation complete.");
+//    }
+//  });
    
-myDuplexStream.on('data', (chunk) => {
-   console.log("Received:", chunk.toString());
-})
+// myDuplexStream.on('data', (chunk) => {
+//    console.log("Received:", chunk.toString());
+// })
 
 
+
+
+
+//......Transform Stream
+const { Transform } = require('stream')
+
+//creating uppercase transform stream class from transform stream class
+// class UppercaseTransform extends Transform {
+//   constructor() {
+//     super();
+//   }
+//   _transform(chunk, encoding, callback) {
+//     // Implement custom transformation logic here
+//     const transformedData = chunk.toString().toUpperCase(); // Modify the data as needed
+//     this.push(transformedData); // Push the transformed data to the output
+//     callback(); // Call the callback to indicate processing is complete
+//   }
+// }
+
+// const uppercaseTransform = new UppercaseTransform()
+// const readStream = fs.createReadStream('writeStream.txt')
+// const writeStream = fs.createWriteStream('transformOutput.txt')
+
+
+// //Pipe data into the transform stream from a readable stream (e.g., a file stream), then pipe to writable stream
+// readStream.pipe(uppercaseTransform).pipe(writeStream)
+
+// //emit data piped into the transform stream
+// uppercaseTransform.on('data', (chunk) => {
+//   log('Transform data : ', chunk.toString())
+// })
+
+
+
+
+
+// JSON PARSING data and extracts specific fields.
+
+// -

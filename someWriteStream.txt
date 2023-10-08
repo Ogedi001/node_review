@@ -1,0 +1,1 @@
+ghd written, we have pass the location of this text file  as we create the duplex stream instance.we have pass the location of this text file  as we create the duplex stream instance
